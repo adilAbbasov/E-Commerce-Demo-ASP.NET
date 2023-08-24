@@ -1,0 +1,11 @@
+﻿@model Category
+
+<div class="container-fluid pt-4 px-4">
+	<div class="col-sm-12 col-xl-6">
+		<div class="bg-secondary rounded p-4">
+			<h3>Details</h3>
+			<div class="mb-3">Name: <span class="mx-2">@Model.Name</span></div>
+			<a asp-action="Index" asp-controller="Category">&#8592 Back to List</a>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,42 @@
+﻿@{
+	int count = 1;
+}
+
+@model List<Category>
+
+<div class="container-fluid pt-4 px-4">
+	<div class="col-sm-12 col-xl-12">
+		<div class="bg-secondary rounded p-4">
+			@if (Model.Count == 0)
+			{
+				<h3>No Category found</h3>
+				<a asp-route="" asp-action="Create" asp-controller="Category">Create Category</a>
+			}
+			else
+			{
+				<h3>Categories</h3>
+				<a asp-action="Create" asp-controller="Category">Create</a>
+				<table class="table">
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Name</th>
+						<th scope="col">Actions</th>
+					</tr>
+					@foreach (var item in Model)
+					{
+						<tr>
+							<th scope="row">@count</th>
+							<td>@item.Name</td>
+							<td>
+								<a asp-action="Details" asp-controller="Category" asp-route-id="@item.Id">Details</a> |
+								<a asp-action="Edit" asp-controller="Category" asp-route-id="@item.Id">Edit</a> |
+								<a asp-action="Delete" asp-controller="Category" asp-route-id="@item.Id">Delete</a>
+							</td>
+						</tr>
+						count++;
+					}
+				</table>
+			}
+		</div>
+	</div>
+</div>

@@ -1,0 +1,62 @@
+﻿@model EditProductViewModel
+
+<div class="container-fluid pt-4 px-4">
+	<div class="col-sm-12 col-xl-6">
+		<div class="bg-secondary rounded p-4">
+			<h3>Edit</h3>
+			<form method="post" enctype="multipart/form-data">
+				<div class="mb-3">
+					<label class="form-label">Name</label>
+					<input type="text" class="form-control" asp-for="Name" placeholder="@Model.Name">
+					<span class="text-primary" asp-validation-for="Name"></span>
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Description</label>
+					<textarea class="form-control" asp-for="Description" placeholder="@Model.Description"></textarea>
+					<span class="text-primary" asp-validation-for="Description"></span>
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Price</label>
+					<input type="number" class="form-control" asp-for="Price" placeholder="@Model.Price" />
+					<span class="text-primary" asp-validation-for="Price"></span>
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Image</label><br />
+					<input type="file" class="form-control-file" asp-for="ImageUrl" placeholder="@Model.ImageUrl" /><span>(@ViewBag.Image)</span><br />
+					<span class="text-primary" asp-validation-for="ImageUrl"></span>
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Category</label><br />
+					<select class="custom-select" asp-for="CategoryId" asp-items=@ViewBag.Categories></select><br />
+					<span class="text-primary" asp-validation-for="CategoryId"></span>
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Tags</label><br />
+					<select class="chosen-select w-100" asp-for=TagIds asp-items=@ViewBag.Tags multiple></select><br />
+					<span class="text-primary" asp-validation-for="TagIds"></span>
+				</div>
+				<button type="submit" class="btn btn-primary mb-3" asp-route-id="@Model.Id">Edit</button>
+			</form>
+			<a asp-action="Index" asp-controller="Product">&#8592 Back to List</a>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<link href="https://harvesthq.github.io/chosen/chosen.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="https://harvesthq.github.io/chosen/chosen.jquery.js"></script>
+	<script src="~/lib/chosen/chosen.jquery.js"></script>
+	<script>
+		$(".chosen-select").chosen();
+		$(".chosen-select").on('change', function (event, el) {
+			var selected_element = $(".chosen-select option:contains(" + el.selected + ")");
+			var selected_value = selected_element.val();
+			var parent_optgroup = selected_element.closest('optgroup').attr('label');
+			var parent_optgroup_class = selected_element.closest('optgroup').attr('class');
+			$(".search-choice:last > span").css("background-color", parent_optgroup_class);
+			selected_element.text(parent_optgroup + ' - ' + selected_value);
+		});
+	</script>
+}
+
